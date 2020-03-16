@@ -59,7 +59,7 @@ use crate::Hosts;
 /// continue to do so as long as there are still any [`AsyncResolver`] handle
 /// linked to it. When all of its [`AsyncResolver`]s have been dropped, the
 /// background future will finish.
-#[derive(Clone)]
+#[derive(Clone,Default)]
 pub struct AsyncResolver<C: DnsHandle, P: ConnectionProvider<Conn = C>> {
     config: ResolverConfig,
     options: ResolverOpts,

@@ -93,7 +93,7 @@ pub trait Spawn {
 }
 
 /// Standard connection implements the default mechanism for creating new Connections
-#[derive(Clone)]
+#[derive(Clone,Default)]
 pub struct GenericConnectionProvider<R: RuntimeProvider>(R::Handle);
 
 impl<R: RuntimeProvider> GenericConnectionProvider<R> {
@@ -331,7 +331,7 @@ where
 }
 
 /// A connected DNS handle
-#[derive(Clone)]
+#[derive(Clone,Default)]
 pub struct GenericConnection(ConnectionConnected);
 
 impl DnsHandle for GenericConnection {
