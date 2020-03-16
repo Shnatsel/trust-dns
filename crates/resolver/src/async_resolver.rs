@@ -175,7 +175,7 @@ impl<R: RuntimeProvider> AsyncResolver<GenericConnection, GenericConnectionProvi
     }
 }
 
-impl<C: DnsHandle, P: ConnectionProvider<Conn = C>> AsyncResolver<C, P> {
+impl<C: DnsHandle + Default, P: ConnectionProvider<Conn = C> + Default> AsyncResolver<C, P> {
     /// Construct a new `AsyncResolver` with the provided configuration.
     ///
     /// # Arguments

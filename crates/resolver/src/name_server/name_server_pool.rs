@@ -56,7 +56,7 @@ impl NameServerPool<TokioConnection, TokioConnectionProvider> {
     }
 }
 
-impl<C: DnsHandle + Sync + 'static, P: ConnectionProvider<Conn = C> + 'static>
+impl<C: DnsHandle + Sync + 'static + Default, P: ConnectionProvider<Conn = C> + 'static + Default>
     NameServerPool<C, P>
 {
     pub(crate) fn from_config_with_provider(
@@ -225,8 +225,8 @@ async fn parallel_conn_loop<C, P>(
     opts: ResolverOpts,
 ) -> Result<DnsResponse, ProtoError>
 where
-    C: DnsHandle + 'static,
-    P: ConnectionProvider<Conn = C> + 'static,
+    C: DnsHandle + 'static + Default,
+    P: ConnectionProvider<Conn = C> + 'static + Default,
 {
     let mut err = ProtoError::from("No connections available");
 
