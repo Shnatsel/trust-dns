@@ -19,7 +19,7 @@ pub struct DnsRequestOptions {
     /// Setting this option will cause the underlying protocol to await the timeout, and then return all Responses.
     pub expects_multiple_responses: bool,
     // /// If set, then the request will terminate early if all types have been received
-    // pub expected_record_types: Option<SmallVec<[RecordType; 2]>>,
+    // pub expected_record_types: Option<TinyVec<[RecordType; 2]>>,
     // TODO: add EDNS options here?
 }
 

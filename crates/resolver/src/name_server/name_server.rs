@@ -10,6 +10,7 @@ use std::fmt::{self, Debug, Formatter};
 use std::pin::Pin;
 use std::sync::Arc;
 use std::time::Instant;
+use std::default::Default;
 
 use futures::Future;
 #[cfg(feature = "tokio-runtime")]
@@ -29,7 +30,7 @@ use crate::name_server::{ConnectionProvider, NameServerState, NameServerStats};
 use crate::name_server::{TokioConnection, TokioConnectionProvider};
 
 /// Specifies the details of a remote NameServer used for lookups
-#[derive(Clone)]
+#[derive(Clone,Default)]
 pub struct NameServer<C: DnsHandle + Send, P: ConnectionProvider<Conn = C> + Send> {
     config: NameServerConfig,
     options: ResolverOpts,

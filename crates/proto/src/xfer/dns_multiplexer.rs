@@ -23,7 +23,7 @@ use futures::{ready, Future, FutureExt};
 use log::{debug, warn};
 use rand;
 use rand::distributions::{Distribution, Standard};
-use smallvec::SmallVec;
+use tinyvec::TinyVec;
 
 use crate::error::*;
 use crate::op::{Message, MessageFinalizer, OpCode};
@@ -45,7 +45,7 @@ struct ActiveRequest {
     //  this small vec will have no allocations, unless the requests is a DNS-SD request
     //  expecting more than one response
     // TODO: change the completion above to a Stream, and don't hold messages...
-    responses: SmallVec<[Message; 1]>,
+    responses: TinyVec<[Message; 1]>,
     timeout: Box<dyn Future<Output = ()> + Send + Unpin>,
 }
 
@@ -61,7 +61,7 @@ impl ActiveRequest {
             request_id,
             request_options,
             // request,
-            responses: SmallVec::new(),
+            responses: TinyVec::new(),
             timeout,
         }
     }

@@ -10,7 +10,7 @@
 use std::ops::{Deref, DerefMut};
 use std::slice::{Iter, IterMut};
 
-use smallvec::SmallVec;
+use tinyvec::TinyVec;
 
 use crate::op::Message;
 
@@ -20,7 +20,7 @@ use crate::op::Message;
 ///
 /// For Most DNS requests, only one response is expected, the exception is a multicast request.
 #[derive(Clone, Debug)]
-pub struct DnsResponse(SmallVec<[Message; 1]>);
+pub struct DnsResponse(TinyVec<[Message; 1]>);
 
 // TODO: when `impl Trait` lands in stable, remove this, and expose FlatMap over answers, et al.
 impl DnsResponse {
@@ -67,12 +67,12 @@ impl From<DnsResponse> for Message {
 
 impl From<Message> for DnsResponse {
     fn from(message: Message) -> DnsResponse {
-        DnsResponse(SmallVec::from([message]))
+        DnsResponse(TinyVec::from(tinyvec::ArrayVec::from([message])))
     }
 }
 
-impl From<SmallVec<[Message; 1]>> for DnsResponse {
-    fn from(messages: SmallVec<[Message; 1]>) -> DnsResponse {
+impl From<TinyVec<[Message; 1]>> for DnsResponse {
+    fn from(messages: TinyVec<[Message; 1]>) -> DnsResponse {
         debug_assert!(
             !messages.is_empty(),
             "There should be at least one message in any DnsResponse"

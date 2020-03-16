@@ -207,6 +207,7 @@ extern crate resolv_conf;
 #[cfg(feature = "serde-config")]
 #[macro_use]
 extern crate serde;
+extern crate tinyvec;
 extern crate smallvec;
 #[cfg(feature = "tokio-runtime")]
 extern crate tokio;

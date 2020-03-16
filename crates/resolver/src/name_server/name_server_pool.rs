@@ -10,7 +10,7 @@ use std::sync::Arc;
 use std::task::{Context, Poll};
 
 use futures::{future, Future, TryFutureExt};
-use smallvec::SmallVec;
+use tinyvec::TinyVec;
 #[cfg(test)]
 #[cfg(feature = "tokio-runtime")]
 use tokio::runtime::Handle;
@@ -234,7 +234,7 @@ where
         let request_cont = request.clone();
 
         // construct the parallel requests, 2 is the default
-        let mut par_conns = SmallVec::<[NameServer<C, P>; 2]>::new();
+        let mut par_conns = TinyVec::<[NameServer<C, P>; 2]>::new();
         let count = conns.len().min(opts.num_concurrent_reqs.max(1));
         for conn in conns.drain(..count) {
             par_conns.push(conn);
