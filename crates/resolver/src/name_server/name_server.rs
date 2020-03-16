@@ -31,7 +31,7 @@ use crate::name_server::{TokioConnection, TokioConnectionProvider};
 
 /// Specifies the details of a remote NameServer used for lookups
 #[derive(Clone,Default)]
-pub struct NameServer<C: DnsHandle + Send, P: ConnectionProvider<Conn = C> + Send> {
+pub struct NameServer<C: DnsHandle + Send + Default, P: ConnectionProvider<Conn = C> + Send + Default> {
     config: NameServerConfig,
     options: ResolverOpts,
     client: Option<C>,
@@ -53,7 +53,7 @@ impl NameServer<TokioConnection, TokioConnectionProvider> {
     }
 }
 
-impl<C: DnsHandle, P: ConnectionProvider<Conn = C>> NameServer<C, P> {
+impl<C: DnsHandle + Default, P: ConnectionProvider<Conn = C> + Default> NameServer<C, P> {
     pub fn new_with_provider(
         config: NameServerConfig,
         options: ResolverOpts,
